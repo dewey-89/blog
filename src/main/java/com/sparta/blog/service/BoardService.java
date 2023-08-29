@@ -94,7 +94,7 @@ public class BoardService {
     //    - 삭제를 요청할 때 비밀번호를 같이 보내서 서버에서 비밀번호 일치 여부를 확인 한 후
     //    - 선택한 게시글을 삭제하고 Client 로 성공했다는 표시 반환하기
     @Transactional
-    public BoardResponseDto deleteBoardByPassword(Long id, BoardDeleteRequestDto requestDto) {
+    public boolean deleteBoardByPassword(Long id, BoardDeleteRequestDto requestDto) {
 
         Board board = boardRepository.findBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
@@ -105,9 +105,10 @@ public class BoardService {
                 boardRepository.delete(board);
             }
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            return false;
         }
-        return new BoardResponseDto(board);
+        return true;
     }
 
 }

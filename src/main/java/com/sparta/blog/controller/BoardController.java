@@ -52,7 +52,7 @@ public class BoardController {
 
     // 5. 선택한 게시글 삭제(password 일치)
     @DeleteMapping("/board/{id}")
-    public BoardResponseDto deleteBoard(@PathVariable Long id, @RequestBody BoardDeleteRequestDto boardDeleteRequestDto){
+    public boolean deleteBoard(@PathVariable Long id, @RequestBody BoardDeleteRequestDto boardDeleteRequestDto){
         return boardService.deleteBoardByPassword(id, boardDeleteRequestDto);
     }
 
