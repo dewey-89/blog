@@ -3,33 +3,33 @@ POST http://localhost:8080/api/post
 Content-Type: application/json
 
 {
-  "author":"한국인111",
-  "contents":"동해물과 백두산이 마르고 닳도록~111",
-  "password":"korea111",
-  "title":"애국가111"
+  "author":"한국인4",
+  "contents":"동해물과 백두산이 마르고 닳도록~4",
+  "password":"korea4",
+  "title":"애국가4"
 }
 
 ### Get List
 GET http://localhost:8080/api/posts
 
 ### UPDATE
-PUT http://localhost:8080/api/board/3
+PUT http://localhost:8080/api/board/4
 Content-Type: application/json
 
 {
   "author":"한국인111",
-  "contents":"동해물과 백두산이 마르고 닳도록~ 222333",
+  "contents":"수정완료",
   "password":"korea111",
-  "title":"애국가111"
+  "title":"수정하자."
 }
 
 ### Get one
 GET http://localhost:8080/api/board/3
 
 ### Delete one
-DELETE http://localhost:8080/api/board/3
+DELETE http://localhost:8080/api/board/1
 Content-Type: application/json
 
 {
-  "password":"korea111"
+  "password":"spring"
 }

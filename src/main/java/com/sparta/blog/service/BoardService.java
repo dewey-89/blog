@@ -79,8 +79,6 @@ public class BoardService {
 
         try {
             if (!board.getPassword().equals(requestDto.getPassword())) {
-                System.out.println(board.getPassword() + "     " + requestDto.getPassword());
-                System.out.println(board.getPassword().equals(requestDto.getPassword()));
                 throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
             } else {
                 board.update(requestDto);
@@ -100,7 +98,6 @@ public class BoardService {
 
         Board board = boardRepository.findBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
-
         try {
             if (!board.getPassword().equals(requestDto.getPassword())) {
                 throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
@@ -110,10 +107,7 @@ public class BoardService {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-
         return new BoardResponseDto(board);
-
-
     }
 
 }

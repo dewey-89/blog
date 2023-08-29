@@ -1,0 +1,306 @@
+PUT http://localhost:8080/api/board/4
+Content-Type: application/json
+Content-Length: 110
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"수정완료",
+  "password":"korea111",
+  "title":"수정하자."
+}
+
+<> 2023-08-29T101256.200.json
+
+###
+
+PUT http://localhost:8080/api/board/4
+Content-Type: application/json
+Content-Length: 111
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"수정완료",
+  "password":"korea1121",
+  "title":"수정하자."
+}
+
+<> 2023-08-29T101236.200.json
+
+###
+
+PUT http://localhost:8080/api/board/4
+Content-Type: application/json
+Content-Length: 147
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"동해물과 백두산이 마르고 닳도록~ 222",
+  "password":"korea111",
+  "title":"애국가111"
+}
+
+<> 2023-08-29T101027.200.json
+
+###
+
+GET http://localhost:8080/api/posts
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T100946.200.json
+
+###
+
+POST http://localhost:8080/api/post
+Content-Type: application/json
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인4",
+  "contents":"동해물과 백두산이 마르고 닳도록~4",
+  "password":"korea4",
+  "title":"애국가4"
+}
+
+<> 2023-08-29T100900.200.json
+
+###
+
+POST http://localhost:8080/api/post
+Content-Type: application/json
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인3",
+  "contents":"동해물과 백두산이 마르고 닳도록~3",
+  "password":"korea3",
+  "title":"애국가3"
+}
+
+<> 2023-08-29T100847.200.json
+
+###
+
+POST http://localhost:8080/api/post
+Content-Type: application/json
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인2",
+  "contents":"동해물과 백두산이 마르고 닳도록~2",
+  "password":"korea2",
+  "title":"애국가2"
+}
+
+<> 2023-08-29T100836.200.json
+
+###
+
+GET http://localhost:8080/api/posts
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T100809.200.json
+
+###
+
+POST http://localhost:8080/api/post
+Content-Type: application/json
+Content-Length: 146
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"동해물과 백두산이 마르고 닳도록~111",
+  "password":"korea111",
+  "title":"애국가111"
+}
+
+<> 2023-08-29T100739.200.json
+
+###
+
+DELETE http://localhost:8080/api/board/1
+Content-Type: application/json
+Content-Length: 25
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "password":"spring"
+}
+
+<> 2023-08-29T100711.200.json
+
+###
+
+DELETE http://localhost:8080/api/board/3
+Content-Type: application/json
+Content-Length: 27
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "password":"korea111"
+}
+
+<> 2023-08-29T005522.200.json
+
+###
+
+DELETE http://localhost:8080/api/board/3
+Content-Type: application/json
+Content-Length: 27
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "password":"korea111"
+}
+
+<> 2023-08-29T004844.500.json
+
+###
+
+DELETE http://localhost:8080/api/board/3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T004550.400.json
+
+###
+
+GET http://localhost:8080/api/board/3
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T002054.200.json
+
+###
+
+GET http://localhost:8080/api/board/2
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T002050.200.json
+
+###
+
+GET http://localhost:8080/api/board/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T002046.200.json
+
+###
+
+PUT http://localhost:8080/api/board/3
+Content-Type: application/json
+Content-Length: 150
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"동해물과 백두산이 마르고 닳도록~ 222333",
+  "password":"korea111",
+  "title":"애국가111"
+}
+
+<> 2023-08-29T001859.200.json
+
+###
+
+PUT http://localhost:8080/api/board/3
+Content-Type: application/json
+Content-Length: 150
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"동해물과 백두산이 마르고 닳도록~ 222333",
+  "password":"korea111",
+  "title":"애국가111"
+}
+
+<> 2023-08-29T001605.200.json
+
+###
+
+PUT http://localhost:8080/api/board/3
+Content-Type: application/json
+Content-Length: 150
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"동해물과 백두산이 마르고 닳도록~ 222333",
+  "password":"korea111",
+  "title":"애국가111"
+}
+
+<> 2023-08-29T001114.200.json
+
+###
+
+GET http://localhost:8080/api/posts
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-08-29T000139.200.json
+
+###
+
+POST http://localhost:8080/api/post
+Content-Type: application/json
+Content-Length: 146
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "author":"한국인111",
+  "contents":"동해물과 백두산이 마르고 닳도록~111",
+  "password":"korea111",
+  "title":"애국가111"
+}
+
+<> 2023-08-29T000039.200.json
+
+###
+
