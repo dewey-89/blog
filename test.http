@@ -33,3 +33,12 @@ Content-Type: application/json
 {
   "password":"password"
 }
+
+### Sign up
+POST http://localhost:8080/api/user/signup
+Content-Type: application/json
+
+{
+  "username":"robbie",
+  "password":"abcd12345",
+}

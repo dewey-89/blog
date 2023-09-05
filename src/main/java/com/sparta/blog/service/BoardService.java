@@ -4,8 +4,10 @@ import com.sparta.blog.dto.BoardDeleteRequestDto;
 import com.sparta.blog.dto.BoardRequestDto;
 import com.sparta.blog.dto.BoardResponseDto;
 import com.sparta.blog.entity.Board;
+import com.sparta.blog.entity.User;
 import com.sparta.blog.repository.BoardRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,9 +39,9 @@ public class BoardService {
     //    3. 게시글 작성 API
 //    - 제목, 작성자명, 비밀번호, 작성 내용을 저장하고
 //    - 저장된 게시글을 Client 로 반환하기
-    public BoardResponseDto createBoard(BoardRequestDto requestDto) {
+    public BoardResponseDto createBoard(BoardRequestDto requestDto, User user) {
         // RequestDto -> Entity
-        Board board = new Board(requestDto);
+        Board board = new Board(requestDto, user);
         // DB 저장
         Board saveBoard = boardRepository.save(board);
         // Entity -> ResponseDto
@@ -72,43 +74,35 @@ public class BoardService {
 //    - 제목, 작성자명, 작성 내용을 수정하고 수정된 게시글을 Client 로 반환하기
 
     @Transactional
-    public BoardResponseDto updateBoardByPassword(Long id, BoardRequestDto requestDto) {
+    public ResponseEntity<String> updateBoardByPassword(Long id, BoardRequestDto requestDto, User user) {
 
-        Board board = boardRepository.findBoardById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
-
-        try {
-            if (!board.getPassword().equals(requestDto.getPassword())) {
-                throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
-            } else {
-                board.update(requestDto);
-            }
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        Board board = findBoardById(id);
+        if (!board.getUser().getUsername().equals(user.getUsername())) {
+            return ResponseEntity.status(400).body("본인의 게시물이 아닙니다.");
+        } else {
+            board.update(requestDto);
         }
 
-        return new BoardResponseDto(board);
+        return ResponseEntity.status(200).body("게시물 수정 성공");
     }
 
     //    6. 선택한 게시글 삭제 API
     //    - 삭제를 요청할 때 비밀번호를 같이 보내서 서버에서 비밀번호 일치 여부를 확인 한 후
     //    - 선택한 게시글을 삭제하고 Client 로 성공했다는 표시 반환하기
     @Transactional
-    public boolean deleteBoardByPassword(Long id, BoardDeleteRequestDto requestDto) {
+    public ResponseEntity<String> deleteBoard(Long id, User user) {
 
-        Board board = boardRepository.findBoardById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
-        try {
-            if (!board.getPassword().equals(requestDto.getPassword())) {
-                throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
-            } else {
-                boardRepository.delete(board);
-            }
-        } catch (IllegalArgumentException e) {
-//            e.printStackTrace();
-            return false;
+        Board board = findBoardById(id);
+        if (!board.getUser().getUsername().equals(user.getUsername())) {
+            return ResponseEntity.status(400).body("본인의 게시물이 아닙니다.");
+        } else {
+            boardRepository.delete(board);
         }
-        return true;
+        return ResponseEntity.ok().body("게시물 삭제 성공");
+    }
+
+    public Board findBoardById(Long id) {
+        return boardRepository.findBoardById(id).orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
     }
 
 }
