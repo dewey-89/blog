@@ -1,6 +1,5 @@
 package com.sparta.blog.service;
 
-import com.sparta.blog.dto.BoardDeleteRequestDto;
 import com.sparta.blog.dto.BoardRequestDto;
 import com.sparta.blog.dto.BoardResponseDto;
 import com.sparta.blog.entity.Board;
@@ -37,8 +36,8 @@ public class BoardService {
     }
 
     //    3. 게시글 작성 API
-//    - 제목, 작성자명, 비밀번호, 작성 내용을 저장하고
-//    - 저장된 게시글을 Client 로 반환하기
+    //    - 제목, 작성자명, 비밀번호, 작성 내용을 저장하고
+    //    - 저장된 게시글을 Client 로 반환하기
     public BoardResponseDto createBoard(BoardRequestDto requestDto, User user) {
         // RequestDto -> Entity
         Board board = new Board(requestDto, user);
@@ -49,19 +48,6 @@ public class BoardService {
         return boardResponseDto;
     }
 
-//    4. 선택한 게시글 조회 API
-//    - 선택한 게시글의 제목, 작성자명, 작성 날짜, 작성 내용을 조회하기
-//            (검색 기능이 아닙니다. 간단한 게시글 조회만 구현해주세요.)
-
-//    public List<BoardResponseDto> getBoardsByKeyword(String keyword) {
-//
-//        List<Board> boards = boardRepository.findAllByContentsContainsOrderByModifiedAtDesc(keyword);
-//        List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
-//        for(Board board : boards){
-//            boardResponseDtos.add(new BoardResponseDto(board));
-//        }
-//        return boardResponseDtos;
-//    }
 
     public BoardResponseDto getBoardById(Long id) {
         Board board = boardRepository.findBoardById(id)
@@ -72,18 +58,17 @@ public class BoardService {
 //    5. 선택한 게시글 수정 API
 //    - 수정을 요청할 때 수정할 데이터와 비밀번호를 같이 보내서 서버에서 비밀번호 일치 여부를 확인 한 후
 //    - 제목, 작성자명, 작성 내용을 수정하고 수정된 게시글을 Client 로 반환하기
-
     @Transactional
-    public ResponseEntity<String> updateBoardByPassword(Long id, BoardRequestDto requestDto, User user) {
+    public BoardResponseDto updateBoardByPassword(Long id, BoardRequestDto boardRequestDto, User user) {
 
         Board board = findBoardById(id);
         if (!board.getUser().getUsername().equals(user.getUsername())) {
-            return ResponseEntity.status(400).body("본인의 게시물이 아닙니다.");
+            throw new IllegalArgumentException("본인의 게시물이 아닙니다.");
         } else {
-            board.update(requestDto);
+            board.update(boardRequestDto);
         }
 
-        return ResponseEntity.status(200).body("게시물 수정 성공");
+        return new BoardResponseDto(board);
     }
 
     //    6. 선택한 게시글 삭제 API
@@ -94,11 +79,11 @@ public class BoardService {
 
         Board board = findBoardById(id);
         if (!board.getUser().getUsername().equals(user.getUsername())) {
-            return ResponseEntity.status(400).body("본인의 게시물이 아닙니다.");
+            return ResponseEntity.status(400).body("msg : 본인의 게시물이 아닙니다 , statusCode : 400");
         } else {
             boardRepository.delete(board);
         }
-        return ResponseEntity.ok().body("게시물 삭제 성공");
+        return ResponseEntity.ok().body("msg : 게시물 삭제 성공, statusCode : 200");
     }
 
     public Board findBoardById(Long id) {

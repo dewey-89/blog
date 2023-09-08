@@ -28,6 +28,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
+    // JWT 검증 및 인가
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
 

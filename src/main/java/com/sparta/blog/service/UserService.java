@@ -44,6 +44,7 @@ public class UserService {
         User user = new User(username, password, role);
         userRepository.save(user);
 
-        return ResponseEntity.ok().body("회원가입 성공");
+        return ResponseEntity.status(200).body("msg : 회원가입 성공, statusCode : 200");
     }
+
 }

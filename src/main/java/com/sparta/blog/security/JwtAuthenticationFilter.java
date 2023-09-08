@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("로그인 성공");
+        response.getWriter().write("msg : 로그인 성공, statusCode : 200");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setStatus(401);
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("로그인 실패");
+        response.getWriter().write("msg : 로그인 실패, statusCode : 401");
     }
 
 }

@@ -1,6 +1,5 @@
 package com.sparta.blog.controller;
 
-import com.sparta.blog.dto.BoardDeleteRequestDto;
 import com.sparta.blog.dto.BoardRequestDto;
 import com.sparta.blog.dto.BoardResponseDto;
 import com.sparta.blog.security.UserDetailsImpl;
@@ -41,9 +40,9 @@ public class BoardController {
     }
 
 
-    // 4. 선택한 게시글 수정(password 일치)
+    // 4. 선택한 게시글 수정
     @PutMapping("/board/{id}")
-    public ResponseEntity<String> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
+    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
         return boardService.updateBoardByPassword(id,boardRequestDto,userDetails.getUser());
     }
 
