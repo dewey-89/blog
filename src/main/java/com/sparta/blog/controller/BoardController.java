@@ -43,10 +43,10 @@ public class BoardController {
     // 4. 선택한 게시글 수정
     @PutMapping("/board/{id}")
     public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return boardService.updateBoardByPassword(id,boardRequestDto,userDetails.getUser());
+        return boardService.updateBoard(id,boardRequestDto,userDetails.getUser());
     }
 
-    // 5. 선택한 게시글 삭제(password 일치)
+    // 5. 선택한 게시글 삭제
     @DeleteMapping("/board/{id}")
     public ResponseEntity<String> deleteBoard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return boardService.deleteBoard(id, userDetails.getUser());

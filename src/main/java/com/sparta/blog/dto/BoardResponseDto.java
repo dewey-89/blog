@@ -3,6 +3,7 @@ package com.sparta.blog.dto;
 import com.sparta.blog.entity.Board;
 import com.sparta.blog.entity.Comment;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Getter
+@Setter
 public class BoardResponseDto {
     private String username;
     private String title;
@@ -32,7 +34,7 @@ public class BoardResponseDto {
             this.commentList.add(new CommentResponseDto(comment));
         }
 //        board.getCommentList().forEach(comment -> commentList.add(new CommentResponseDto(comment)));
-//        Collections.reverse(commentList);
+        Collections.reverse(commentList);
 
     }
 }

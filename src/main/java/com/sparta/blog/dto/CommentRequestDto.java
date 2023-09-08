@@ -7,4 +7,5 @@ import lombok.Setter;
 @Getter
 public class CommentRequestDto {
     private String comment;
+    private Long boardId;
 }

@@ -59,7 +59,7 @@ public class BoardService {
 //    - 수정을 요청할 때 수정할 데이터와 비밀번호를 같이 보내서 서버에서 비밀번호 일치 여부를 확인 한 후
 //    - 제목, 작성자명, 작성 내용을 수정하고 수정된 게시글을 Client 로 반환하기
     @Transactional
-    public BoardResponseDto updateBoardByPassword(Long id, BoardRequestDto boardRequestDto, User user) {
+    public BoardResponseDto updateBoard(Long id, BoardRequestDto boardRequestDto, User user) {
 
         Board board = findBoardById(id);
         if (!board.getUser().getUsername().equals(user.getUsername())) {
@@ -83,7 +83,7 @@ public class BoardService {
         } else {
             boardRepository.delete(board);
         }
-        return ResponseEntity.ok().body("msg : 게시물 삭제 성공, statusCode : 200");
+        return ResponseEntity.status(200).body("msg : 게시물 삭제 성공, statusCode : 200");
     }
 
     public Board findBoardById(Long id) {
