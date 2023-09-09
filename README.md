@@ -12,3 +12,10 @@ https://aquamarine-laugh-515.notion.site/API-280b5535ae85498391ab932efab6dbd5?pv
 ![스크린샷 2023-09-05 오후 1 50 46](https://github.com/dewey-89/blog/assets/140939516/6fae09a2-88d5-401b-a616-f2e5e32df21d)
 
 
+## 3주차
+
+
+<img width="409" alt="스크린샷 2023-09-09 오전 11 42 30" src="https://github.com/dewey-89/blog/assets/140939516/2ca3bb53-f77b-48d1-ac89-06e3e1c2e0a9">
+
+
+
