@@ -4,6 +4,7 @@ import com.sparta.blog.dto.BoardRequestDto;
 import com.sparta.blog.dto.BoardResponseDto;
 import com.sparta.blog.entity.Board;
 import com.sparta.blog.entity.User;
+import com.sparta.blog.entity.UserRoleEnum;
 import com.sparta.blog.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
@@ -62,10 +63,15 @@ public class BoardService {
     public BoardResponseDto updateBoard(Long id, BoardRequestDto boardRequestDto, User user) {
 
         Board board = findBoardById(id);
-        if (!board.getUser().getUsername().equals(user.getUsername())) {
-            throw new IllegalArgumentException("본인의 게시물이 아닙니다.");
-        } else {
+
+        if(user.getRole().equals(UserRoleEnum.ADMIN)){
             board.update(boardRequestDto);
+        }
+        else if(board.getUser().getId().equals(user.getId())){
+            board.update(boardRequestDto);
+        }
+        else{
+            throw new IllegalArgumentException("권한이 없습니다.");
         }
 
         return new BoardResponseDto(board);
@@ -78,10 +84,14 @@ public class BoardService {
     public ResponseEntity<String> deleteBoard(Long id, User user) {
 
         Board board = findBoardById(id);
-        if (!board.getUser().getUsername().equals(user.getUsername())) {
-            return ResponseEntity.status(400).body("msg : 본인의 게시물이 아닙니다 , statusCode : 400");
-        } else {
+        if(user.getRole().equals(UserRoleEnum.ADMIN)){
             boardRepository.delete(board);
+        }
+        else if(board.getUser().getId().equals(user.getId())){
+            boardRepository.delete(board);
+        }
+        else{
+            throw new IllegalArgumentException("권한이 없습니다.");
         }
         return ResponseEntity.status(200).body("msg : 게시물 삭제 성공, statusCode : 200");
     }
