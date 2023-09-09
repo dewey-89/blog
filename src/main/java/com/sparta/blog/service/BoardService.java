@@ -91,7 +91,8 @@ public class BoardService {
             boardRepository.delete(board);
         }
         else{
-            throw new IllegalArgumentException("권한이 없습니다.");
+//            throw new IllegalArgumentException("권한이 없습니다.");
+            return ResponseEntity.status(400).body("msg :작성자만 수정할 수 있습니다. , statusCode : 400");
         }
         return ResponseEntity.status(200).body("msg : 게시물 삭제 성공, statusCode : 200");
     }
