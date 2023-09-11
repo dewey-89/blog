@@ -37,33 +37,24 @@ public class CommentService {
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto commentRequestDto, User user) {
         Comment comment = findCommentById(commentId);
 
-        if(user.getRole().equals(UserRoleEnum.ADMIN)){
-            comment.update(commentRequestDto);
-        }
-        else if(comment.getUser().getId().equals(user.getId())){
-            comment.update(commentRequestDto);
-        }
-        else{
+        if(!(user.getRole().equals(UserRoleEnum.ADMIN)||comment.getUser().getId().equals(user.getId()))){
             throw new IllegalArgumentException("권한이 없습니다.");
         }
 
+        comment.update(commentRequestDto);
         return new CommentResponseDto(comment);
     }
 
-
+    // 3. 댓글 삭제
+    @Transactional
     public ResponseEntity<String> deleteComment(Long commentId, User user) {
         Comment comment = findCommentById(commentId);
 
-        if(user.getRole().equals(UserRoleEnum.ADMIN)){
-            commentRepository.delete(comment);
-        }
-        else if(comment.getUser().getId().equals(user.getId())){
-            commentRepository.delete(comment);
-        }
-        else{
+        if(!(user.getRole().equals(UserRoleEnum.ADMIN)||comment.getUser().getId().equals(user.getId()))){
             throw new IllegalArgumentException("권한이 없습니다.");
         }
 
+        commentRepository.delete(comment);
         return ResponseEntity.status(200).body("msg: 댓글 삭제 성공, status: 200");
     }
 

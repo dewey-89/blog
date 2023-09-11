@@ -19,19 +19,17 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    // 1.전체 게시글 조회
+    // 1.전체 게시글 조회 API
     @GetMapping("/board")
     public List<BoardResponseDto> getBoard() {
         return boardService.getBoard();
     }
 
-    // 2.게시글 작성
-    // Json형식으로 요청
+    // 2.게시글 작성 API
     @PostMapping("/board")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return boardService.createBoard(requestDto, userDetails.getUser());
     }
-
 
     // 3. 선택한 게시글 조회 API
     @GetMapping("/board/{id}")
@@ -39,14 +37,13 @@ public class BoardController {
         return boardService.getBoardById(id);
     }
 
-
-    // 4. 선택한 게시글 수정
+    // 4. 선택한 게시글 수정 API
     @PutMapping("/board/{id}")
     public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
         return boardService.updateBoard(id,boardRequestDto,userDetails.getUser());
     }
 
-    // 5. 선택한 게시글 삭제
+    // 5. 선택한 게시글 삭제 API
     @DeleteMapping("/board/{id}")
     public ResponseEntity<String> deleteBoard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return boardService.deleteBoard(id, userDetails.getUser());

@@ -22,10 +22,8 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-
-    //    2. 전체 게시글 목록 조회 API
-    //    - 제목, 작성자명, 작성 내용, 작성 날짜를 조회하기
-    //    - 작성 날짜 기준 내림차순으로 정렬하기
+    // 전체 게시글 조회 API
+    @Transactional
     public List<BoardResponseDto> getBoard() {
         // DB 조회
         List<Board> boards = boardRepository.findAllByOrderByModifiedAtDesc();
@@ -36,9 +34,8 @@ public class BoardService {
         return boardResponseDtos;
     }
 
-    //    3. 게시글 작성 API
-    //    - 제목, 작성자명, 비밀번호, 작성 내용을 저장하고
-    //    - 저장된 게시글을 Client 로 반환하기
+    // 게시글 작성 API
+    @Transactional
     public BoardResponseDto createBoard(BoardRequestDto requestDto, User user) {
         // RequestDto -> Entity
         Board board = new Board(requestDto, user);
@@ -49,51 +46,39 @@ public class BoardService {
         return boardResponseDto;
     }
 
-
+    // 게시글 선택 조회
+    @Transactional
     public BoardResponseDto getBoardById(Long id) {
         Board board = boardRepository.findBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
         return new BoardResponseDto(board);
     }
 
-//    5. 선택한 게시글 수정 API
-//    - 수정을 요청할 때 수정할 데이터와 비밀번호를 같이 보내서 서버에서 비밀번호 일치 여부를 확인 한 후
-//    - 제목, 작성자명, 작성 내용을 수정하고 수정된 게시글을 Client 로 반환하기
+    // 선택한 게시글 수정 API
     @Transactional
     public BoardResponseDto updateBoard(Long id, BoardRequestDto boardRequestDto, User user) {
 
         Board board = findBoardById(id);
 
-        if(user.getRole().equals(UserRoleEnum.ADMIN)){
-            board.update(boardRequestDto);
-        }
-        else if(board.getUser().getId().equals(user.getId())){
-            board.update(boardRequestDto);
-        }
-        else{
+        if(!(user.getRole().equals(UserRoleEnum.ADMIN)||board.getUser().getId().equals(user.getId()))){
             throw new IllegalArgumentException("권한이 없습니다.");
         }
 
+        board.update(boardRequestDto);
         return new BoardResponseDto(board);
     }
 
-    //    6. 선택한 게시글 삭제 API
-    //    - 삭제를 요청할 때 비밀번호를 같이 보내서 서버에서 비밀번호 일치 여부를 확인 한 후
-    //    - 선택한 게시글을 삭제하고 Client 로 성공했다는 표시 반환하기
+    // 선택한 게시글 삭제 API
     @Transactional
     public ResponseEntity<String> deleteBoard(Long id, User user) {
 
         Board board = findBoardById(id);
-        if(user.getRole().equals(UserRoleEnum.ADMIN)){
-            boardRepository.delete(board);
-        }
-        else if(board.getUser().getId().equals(user.getId())){
-            boardRepository.delete(board);
-        }
-        else{
+        if(!(user.getRole().equals(UserRoleEnum.ADMIN)||board.getUser().getId().equals(user.getId()))){
 //            throw new IllegalArgumentException("권한이 없습니다.");
             return ResponseEntity.status(400).body("msg :작성자만 수정할 수 있습니다. , statusCode : 400");
         }
+
+        boardRepository.delete(board);
         return ResponseEntity.status(200).body("msg : 게시물 삭제 성공, statusCode : 200");
     }
 

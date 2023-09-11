@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class SignupRequestDto {
     @NotBlank
     @Pattern(regexp = "^[a-z0-9]*$", message = "아이디는 영문 소문자와 숫자로만 입력해주세요.")

@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Getter
-@Setter
 public class BoardResponseDto {
     private String username;
     private String title;
@@ -33,7 +32,7 @@ public class BoardResponseDto {
         for (Comment comment : board.getCommentList()) {
             this.commentList.add(new CommentResponseDto(comment));
         }
-//        board.getCommentList().forEach(comment -> commentList.add(new CommentResponseDto(comment)));
+
         Collections.reverse(commentList);
 
     }
