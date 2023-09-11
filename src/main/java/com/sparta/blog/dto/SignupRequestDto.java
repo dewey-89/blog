@@ -14,7 +14,7 @@ public class SignupRequestDto {
     @Size(min = 4, max = 10, message = "아이디는 4자 이상 10자 이하로 입력해주세요.")
     private String username;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "비밀번호는 영문 대소문자와 숫자로만 입력해주세요.")
+    @Pattern(regexp = "^[a-zA-Z0-9_~!@#$%^&*()-+|}{:;'\".,<>?]+$", message = "비밀번호는 영문 대소문자, 숫자, 특수문자로만 입력해주세요.")
     @Size(min = 8, max = 15, message = "비밀번호는 8자 이상 16자 이하로 입력해주세요.")
     private String password;
 
