@@ -28,8 +28,7 @@ public class UserService {
         // 회원 중복 확인
         Optional<User> checkUsername = userRepository.findByUsername(username);
         if (checkUsername.isPresent()) {
-//            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
-            return ResponseEntity.status(400).body("msg : 중복된 username 입니다. , statusCode : 400");
+            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
 
         // 사용자 ROLE 확인

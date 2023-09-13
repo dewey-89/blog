@@ -2,26 +2,27 @@ package com.sparta.blog.service;
 
 import com.sparta.blog.dto.CommentRequestDto;
 import com.sparta.blog.dto.CommentResponseDto;
-import com.sparta.blog.entity.Board;
-import com.sparta.blog.entity.Comment;
-import com.sparta.blog.entity.User;
-import com.sparta.blog.entity.UserRoleEnum;
+import com.sparta.blog.entity.*;
 import com.sparta.blog.repository.BoardRepository;
 import com.sparta.blog.repository.CommentRepository;
+import com.sparta.blog.repository.LikedCommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
     private final BoardRepository boardRepository;
+    private final LikedCommentRepository likedCommentRepository;
 
     // 1. 댓글 작성
     @Transactional
-    public CommentResponseDto createComment(CommentRequestDto commentRequestDto, User user) {
+    public ResponseEntity<CommentResponseDto> createComment(CommentRequestDto commentRequestDto, User user) {
         Board board = boardRepository.findById(commentRequestDto.getBoardId()).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
@@ -29,42 +30,49 @@ public class CommentService {
 
         commentRepository.save(comment);
 
-        return new CommentResponseDto(comment);
+        return ResponseEntity.status(200).body(new CommentResponseDto(comment));
     }
 
     // 2. 댓글 수정
     @Transactional
-    public CommentResponseDto updateComment(Long commentId, CommentRequestDto commentRequestDto, User user) {
+    public  ResponseEntity<CommentResponseDto> updateComment(Long commentId, CommentRequestDto commentRequestDto, User user) {
         Comment comment = findCommentById(commentId);
 
-        if(user.getRole().equals(UserRoleEnum.ADMIN)){
-            comment.update(commentRequestDto);
-        }
-        else if(comment.getUser().getId().equals(user.getId())){
-            comment.update(commentRequestDto);
-        }
-        else{
+        if(!(user.getRole().equals(UserRoleEnum.ADMIN)||comment.getUser().getId().equals(user.getId()))){
             throw new IllegalArgumentException("권한이 없습니다.");
         }
 
-        return new CommentResponseDto(comment);
+        comment.update(commentRequestDto);
+        return ResponseEntity.status(200).body(new CommentResponseDto(comment));
     }
 
-
+    // 3. 댓글 삭제
+    @Transactional
     public ResponseEntity<String> deleteComment(Long commentId, User user) {
         Comment comment = findCommentById(commentId);
 
-        if(user.getRole().equals(UserRoleEnum.ADMIN)){
-            commentRepository.delete(comment);
-        }
-        else if(comment.getUser().getId().equals(user.getId())){
-            commentRepository.delete(comment);
-        }
-        else{
-            throw new IllegalArgumentException("권한이 없습니다.");
+        if(!(user.getRole().equals(UserRoleEnum.ADMIN)||comment.getUser().getId().equals(user.getId()))){
+            return ResponseEntity.status(400).body("msg: 권한이 없습니다., status: 400");
         }
 
+        commentRepository.delete(comment);
         return ResponseEntity.status(200).body("msg: 댓글 삭제 성공, status: 200");
+    }
+
+    // 댓글 좋아요 API
+    @Transactional
+    public ResponseEntity<String> likeComment(Long commentId, User user) {
+        Comment comment = findCommentById(commentId);
+        Optional<LikedComment> likedCommentList = likedCommentRepository.findByCommentIdAndUserId(commentId, user.getId());
+
+        if(likedCommentList.isPresent()){
+            likedCommentRepository.delete(likedCommentList.get());
+            return ResponseEntity.status(200).body("msg : 댓글 좋아요 취소 성공, statusCode : 200");
+        }
+
+        likedCommentRepository.save(new LikedComment(comment, user));
+        return ResponseEntity.status(200).body("msg : 댓글 좋아요 성공, statusCode : 200");
+
     }
 
     private Comment findCommentById(Long commentId) {
@@ -72,4 +80,6 @@ public class CommentService {
                 () -> new IllegalArgumentException("댓글이 존재하지 않습니다.")
         );
     }
+
+
 }

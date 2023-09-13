@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter
-@Setter
 @Table(name = "board") // 매핑할 테이블의 이름을 지정
 @NoArgsConstructor
 public class Board extends Timestamped{
@@ -31,6 +30,9 @@ public class Board extends Timestamped{
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<LikedBoard> LikedBoardList = new ArrayList<>();
+
     public Board(BoardRequestDto requestDto, User user) {
         this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
@@ -41,6 +43,5 @@ public class Board extends Timestamped{
         this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
     }
-
 
 }

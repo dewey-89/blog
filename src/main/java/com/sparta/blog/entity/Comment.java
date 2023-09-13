@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Setter
 @Getter
 @Table(name = "comment")
 @NoArgsConstructor
@@ -26,6 +28,10 @@ public class Comment extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<LikedComment> LikedCommentList = new ArrayList<>();
+
     public Comment(CommentRequestDto commentRequestDto, Board board, User user) {
         this.comment = commentRequestDto.getComment();
         this.board = board;
