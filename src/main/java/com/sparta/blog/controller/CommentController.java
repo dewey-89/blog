@@ -17,13 +17,13 @@ public class CommentController {
 
     //1. 댓글 작성 API
     @PostMapping("/comment")
-    public CommentResponseDto createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommentResponseDto> createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.createComment(commentRequestDto, userDetails.getUser());
     }
 
     //2. 댓글 수정 API
     @PutMapping("/comment/{commentId}")
-    public CommentResponseDto updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.updateComment(commentId, commentRequestDto, userDetails.getUser());
     }
 
@@ -31,6 +31,12 @@ public class CommentController {
     @DeleteMapping("/comment/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.deleteComment(commentId, userDetails.getUser());
+    }
+
+    // 4. 댓글 좋아요 API
+    @PostMapping("/comment/{commentId}/like")
+    public ResponseEntity<String> likeBoard(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.likeComment(commentId, userDetails.getUser());
     }
 
  }
